@@ -1,0 +1,42 @@
+server:
+  port: 1096
+  address: 0.0.0.0
+  servlet:
+    context-path: /api/v1/aquiles/user-service
+
+spring:
+  application:
+    name: aquiles-users
+    security:
+      jwt:
+        secret-key: an2u8ouUuPscExx54L9sdfASw51658asdPASDKASDI0541sdf6584Gasdf65
+        expiration: 30 # Expiration value in days
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: false
+  datasource:
+    url: jdbc:mysql://localhost:3306/aquiles_users_default
+    username: root
+    password: DevMed@2022*
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+services:
+  tenant:
+    name: tenants
+  user:
+    name: users
+
+multitenancy:
+  database:
+    dbBaseUrl: jdbc:mysql://localhost:3306/
+    service-prefix: aquiles_users_
+    default-schema: aquiles_users_default
+  http:
+    header-name: TenantId

@@ -1,0 +1,10 @@
+server:
+  port: 1901
+
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          default-label: config-server
+          uri: https://github.com/LuisF-1995/aquiles

@@ -1,0 +1,17 @@
+syntax = "proto3";
+package com.lurodev.usersmicroservice.proto;
+
+option java_multiple_files = true;
+option java_outer_classname = "TenantServiceProto";
+
+service Greeter {
+  rpc SayHello (HelloRequest) returns (HelloResponse);
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloResponse {
+  string message = 1;
+}

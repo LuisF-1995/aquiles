@@ -1,0 +1,37 @@
+server:
+  port: 1095
+  address: 0.0.0.0
+  servlet:
+    context-path: /api/v1/aquiles/tenant-service
+
+spring:
+  application:
+    name: aquiles-tenant
+    dbBaseUrl: jdbc:mysql://localhost:3306
+    security:
+      jwt:
+        secret-key: an2u8ouUuPscExx54L9sdfASw51658asdPASDKASDI0541sdf6584Gasdf65
+        expiration: 30 # Expiration value in days
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect
+    properties:
+      hibernate:
+        format_sql: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/aquiles_tenants?createDatabaseIfNotExist=true
+    username: root
+    password: DevMed@2022*
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+application:
+  name: aquiles
+
+multitenancy:
+  services:
+    users:
+      name: users-service
+      base-url: http://localhost:1096/api/v1/aquiles/user-service
