@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: aquiles-users
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        uri: http://localhost:1901
