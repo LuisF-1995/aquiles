@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import RootHeader from '../components/root/RootHeader';
+import RootHeader from '../components/header/RootHeader';
 import Login from '../components/login/Login';
 
 const RootPage = () => {

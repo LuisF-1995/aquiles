@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Backdrop, Fade, Modal, TextField } from '@mui/material';
+import { Fade, Modal, TextField } from '@mui/material';
 import './styles.css';
 import { UserLogin } from '../../constants/Interfaces';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { applicationPaths } from '../../constants/routes';
 
 const Login = (props:{open:boolean; closeModal:any}) => {
@@ -69,7 +69,17 @@ const Login = (props:{open:boolean; closeModal:any}) => {
               </div>
               <div className='row my-4 w-100'>
                 <p className='col-8 m-0 p-0'>¿Not registered yet?</p>
-                <Link to={applicationPaths.registerTenant} className='col-4'>Register</Link>
+                <NavLink 
+                  to={`/${applicationPaths.registerTenant}`}
+                  className='col-4'
+                  style={({ isActive, isPending, isTransitioning }) => {
+                    return {
+                      display: isActive && 'none'
+                    };
+                  }} 
+                >
+                  Register
+                </NavLink>
               </div>
             </form>
           </section>
