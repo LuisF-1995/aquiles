@@ -1,6 +1,5 @@
 export const applicationPaths = {
   root: "",
-  login: "login",
   registerTenant: "register-tenant",
   dashboard: {
     root: "dashboard",

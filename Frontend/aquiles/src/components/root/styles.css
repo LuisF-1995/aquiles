@@ -1,0 +1,10 @@
+nav{
+  background-color: rgba(180, 0, 35, 0.8);
+}
+
+.access-buttons{
+  gap: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBrowserRouter, Outlet } from 'react-router-dom';
 import RootPage from '../pages/Root';
-import Login from '../pages/Login';
+import Login from './login/Login';
 import RegisterTenant from '../pages/RegisterTenant';
 import ErrorPage from '../pages/ErrorPage';
 import { applicationPaths } from '../constants/routes';
@@ -15,10 +15,6 @@ const routes = createBrowserRouter([
       {
         path: "",
         element: <RootPage/>
-      },
-      {
-        path: applicationPaths.login,
-        element: <Login/>
       },
       {
         path: applicationPaths.registerTenant,
