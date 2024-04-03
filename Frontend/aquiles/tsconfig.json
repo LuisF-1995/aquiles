@@ -1,0 +1,35 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        "jsx": "react",
+        "forceConsistentCasingInFileNames": true,
+        "declaration": true,
+        "sourceMap": true,
+        "experimentalDecorators": true,
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "inlineSources": false,
+        "strictNullChecks": false,
+
+        "typeRoots": [
+            "./node_modules/@types",
+            "./node_modules/@microsoft"
+        ],
+        "lib": [
+            "ES6",
+            "dom",
+            "es2015.collection",
+            "es2015.promise"
+        ]
+    },
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.tsx"
+    ],
+    "exclude": [
+        "node_modules",
+        "lib"
+    ]
+}

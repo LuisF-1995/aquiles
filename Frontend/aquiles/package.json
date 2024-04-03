@@ -2,21 +2,34 @@
   "name": "aquiles",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "Luis Fernando Rodríguez Ortiz",
+    "email": "luis-1995@live.com.ar",
+    "url": "https://www.linkedin.com/in/luis-fernando-rodriguez-ortiz-engineer/"
+  },
+
   "dependencies": {
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.5",
-    "@fontsource/roboto": "^5.0.12",
-    "@mui/icons-material": "^5.15.14",
-    "@mui/material": "^5.15.14",
-    "@mui/styled-engine-sc": "^6.0.0-alpha.18",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "^5.0.1",
-    "styled-components": "^6.1.8",
-    "web-vitals": "^2.1.4"
+    "@emotion/react": "11.11.4",
+    "@emotion/styled": "11.11.5",
+    "@fontsource/roboto": "5.0.12",
+    "@mui/icons-material": "5.15.14",
+    "@mui/material": "5.15.14",
+    "@mui/styled-engine-sc": "6.0.0-alpha.18",
+    "@testing-library/jest-dom": "5.17.0",
+    "@testing-library/react": "13.4.0",
+    "@testing-library/user-event": "13.5.0",
+    "axios": "1.6.8",
+    "bootstrap": "5.3.3",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-router-dom": "6.22.3",
+    "react-scripts": "5.0.1",
+    "styled-components": "6.1.8",
+    "sweetalert2": "11.10.7",
+    "web-vitals": "2.1.4"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "7.21.11"
   },
   "scripts": {
     "start": "react-scripts start",

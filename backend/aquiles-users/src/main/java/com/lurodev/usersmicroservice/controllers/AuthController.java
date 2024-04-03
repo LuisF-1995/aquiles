@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
     private final IAuthService authService;
 
-    @PostMapping("/auth")
+    @PostMapping
     public ResponseEntity<RequestResponse> authenticate(@RequestBody UserLogin authUser){
         return ResponseEntity.ok(authService.authenticateUser(authUser));
     }
