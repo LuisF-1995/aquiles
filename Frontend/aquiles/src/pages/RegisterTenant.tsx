@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
-import { RegistrationPlans, Tenant, TenantRegisterContainer, User } from '../constants/Interfaces';
+import { ApiRequestResponse, RegistrationPlans, Tenant, TenantRegisterContainer, User } from '../constants/Interfaces';
 import RootHeader from '../components/header/RootHeader';
 import Login from '../components/login/Login';
-import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material';
+import { Backdrop, CircularProgress, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material';
 import { SendRounded, VisibilityOff, Visibility } from '@mui/icons-material';
 import CountrySelect from '../components/custom-components/CountrySelect';
+import { sendPost } from '../services/apiRequests';
+import { apiRoutes } from '../constants/Api';
+import Swal from 'sweetalert2';
 
 
 const RegisterTenant = () => {
+  const [loading, setLoading] = useState(false);
   const [tenant, setTenant] = useState<Tenant>({
     companyName: "",
     companyId: "",
@@ -39,6 +43,10 @@ const RegisterTenant = () => {
 
   const changeLoginState = () => {
     setOpenLogin(!openLogin);
+  };
+
+  const changeLoadingState = (loadingState:boolean) => {
+    setLoading(loadingState);
   };
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -97,16 +105,97 @@ const RegisterTenant = () => {
       ...tenant,
       [event.target.name]: event.target.value
     });
+
+    setTenantRegister({
+      tenant: {
+        ...tenant,
+        [event.target.name]: event.target.value
+      },
+      owner: {
+        ...owner
+      }
+    });
   };
   const handleOwnerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setOwner({
       ...owner,
       [event.target.name]: event.target.value
     });
+
+    setTenantRegister({
+      tenant: {
+        ...tenant
+      },
+      owner: {
+        ...owner,
+        [event.target.name]: event.target.value
+      }
+    });
   };
 
   const handleSubmit = async (form:React.FormEvent<HTMLFormElement>) => {
     form.preventDefault();
+    setLoading(true);
+
+    if(samePass){
+      try {
+        const registerResponse:ApiRequestResponse = await sendPost(`${apiRoutes.tenantService.root}${apiRoutes.tenantService.tenant.root}`, tenantRegister);
+    
+        if (registerResponse && registerResponse.success){
+          setLoading(false);
+          Swal.fire({
+            title: 'Registro exitoso',
+            text: `La solicitud de registro se radicó exitosamente.`,
+            icon: 'success',
+          })
+          .then(() => {
+            setValidatePass("");
+            setCountryInfo({
+              code: "",
+              label: "",
+              phone: ""
+            });
+            setTenant({
+              companyName: "",
+              companyId: "",
+              country: "",
+              isolated: false,
+              plan: RegistrationPlans.FREE
+            });
+            setOwner({
+              name: "",
+              lastname: "",
+              dni: "",
+              email: "",
+              password: ""
+            });
+            setTenantRegister({
+              tenant: null,
+              owner: null
+            });
+          })
+        }
+        else{
+          setLoading(false);
+          Swal.fire({
+            title: 'No se pudo solicitar el registro',
+            text: ``,
+            icon: 'error',
+          })
+        }
+      } 
+      catch (error) {
+        setLoading(false);
+          Swal.fire({
+            title: 'Error de comunicación con el servidor',
+            text: ``,
+            icon: 'error',
+          })
+      }
+    }
+    else{
+      setLoading(false);
+    }
   };
 
   return (
@@ -260,7 +349,13 @@ const RegisterTenant = () => {
         </div>
       </form>
 
-      <Login open={openLogin} closeModal={changeLoginState}/>
+      <Login open={openLogin} closeModal={changeLoginState} changeLoadingState={changeLoadingState}/>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </main>
   )
 };

@@ -1,3 +1,16 @@
+export interface ApiRequestResponse{
+  model?: any;
+  success: boolean;
+  httpStatus: number;
+  message?: string;
+};
+
+export interface UserAuthenticated{
+  userId:number;
+  companyId:string;
+  jwt:string;
+};
+
 export interface UserLogin{
   email: string;
   password: string;

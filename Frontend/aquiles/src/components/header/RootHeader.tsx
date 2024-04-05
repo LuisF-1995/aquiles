@@ -14,12 +14,12 @@ const RootHeader = ({changeLoginState}) => {
     <header>
       <nav className="navbar py-1" data-bs-theme="dark">
         <section className="container-fluid">
-          <a className="navbar-brand p-0" href="/">
+          <NavLink className="navbar-brand p-0" to={applicationPaths.root}>
             <img src="/images/aquiles-logo.png" alt="Aquiles-logo" width="50" height="50" />
             <span style={{marginLeft:10}}>
               Aquiles
             </span>
-          </a>
+          </NavLink>
           <div className='access-buttons'>
             <NavLink 
               type="button" 
