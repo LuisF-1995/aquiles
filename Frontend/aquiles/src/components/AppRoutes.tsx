@@ -5,6 +5,11 @@ import RegisterTenant from '../pages/RegisterTenant';
 import ErrorPage from '../pages/ErrorPage';
 import { applicationPaths } from '../constants/routes';
 import Dashboard from '../pages/Dashboard';
+import MyProfile from './dashboard/MyProfile';
+import RegisterUser from './dashboard/RegisterUser';
+import Statistics from './dashboard/Statistics';
+import Infractions from './dashboard/Infractions';
+import Areas from './dashboard/Areas';
 
 const routes = createBrowserRouter([
   {
@@ -22,7 +27,29 @@ const routes = createBrowserRouter([
       },
       {
         path: applicationPaths.dashboard.root,
-        element: <Dashboard/>
+        element: <Dashboard/>,
+        children: [
+          {
+            path: applicationPaths.dashboard.profile,
+            element: <MyProfile/>
+          },
+          {
+            path: applicationPaths.dashboard.registerUser,
+            element: <RegisterUser/>
+          },
+          {
+            path: applicationPaths.dashboard.statistics,
+            element: <Statistics/>
+          },
+          {
+            path: applicationPaths.dashboard.infractions,
+            element: <Infractions/>
+          },
+          {
+            path: applicationPaths.dashboard.areas,
+            element: <Areas/>
+          }
+        ]
       }
     ]
   }

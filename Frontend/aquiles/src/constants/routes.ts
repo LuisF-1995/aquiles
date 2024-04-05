@@ -3,6 +3,10 @@ export const applicationPaths = {
   registerTenant: "register-tenant",
   dashboard: {
     root: "dashboard",
-    registerUser: "register-user"
+    profile: "my-profile",
+    registerUser: "register-user",
+    statistics: "statistics",
+    infractions: "infractions",
+    areas: "areas"
   }
 };
