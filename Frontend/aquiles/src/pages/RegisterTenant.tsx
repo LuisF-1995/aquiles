@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ApiRequestResponse, RegistrationPlans, Tenant, TenantRegisterContainer, User } from '../constants/Interfaces';
+import { ApiRequestResponse, Tenant, TenantRegisterContainer, User } from '../constants/Interfaces';
 import RootHeader from '../components/header/RootHeader';
 import Login from '../components/login/Login';
 import { Backdrop, CircularProgress, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material';
@@ -17,7 +17,7 @@ const RegisterTenant = () => {
     companyId: "",
     country: "",
     isolated: false,
-    plan: RegistrationPlans.FREE
+    plan: "FREE"
   });
   const [owner, setOwner] = useState<User>({
     name: "",
@@ -160,7 +160,7 @@ const RegisterTenant = () => {
               companyId: "",
               country: "",
               isolated: false,
-              plan: RegistrationPlans.FREE
+              plan: 'FREE'
             });
             setOwner({
               name: "",

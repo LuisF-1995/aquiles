@@ -46,7 +46,7 @@ public class Tenant {
     @Column(nullable = false)
     private Boolean isActive;
 
-    @OneToMany(mappedBy = "tenant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "tenant", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnoreProperties({"tenant"})
     private Set<TenantUser> users = new HashSet<>();
 

@@ -6,7 +6,8 @@ export const apiRoutes = {
       params: "/params"
     },
     tenant: {
-      root: "/tenant"
+      root: "/tenant",
+      byCompanyId: "/company"
     },
     tenant_user: {
       root: "/user",

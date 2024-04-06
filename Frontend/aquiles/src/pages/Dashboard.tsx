@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
+import './pages-style.css'
 import Swal from 'sweetalert2';
 import { applicationPaths } from '../constants/routes';
 import { AppBar, Avatar, Backdrop, Badge, Box, CircularProgress, createTheme, Divider, IconButton, ListItemIcon, Menu, MenuItem, ThemeProvider, Toolbar, Tooltip, Typography } from '@mui/material';
 import { ApiRequestResponse, User } from '../constants/Interfaces';
-import { storageCompanyIdKeyName, storageTokenKeyName, storageUserIdKeyName } from '../constants/globalConstants';
+import { images, storageCompanyIdKeyName, storageTokenKeyName, storageUserIdKeyName } from '../constants/globalConstants';
 import { sendGet } from '../services/apiRequests';
 import { apiRoutes } from '../constants/Api';
-import { Logout, HomeRounded, Menu as MenuIcon, Notifications } from '@mui/icons-material';
+import { Logout, Menu as MenuIcon, Notifications } from '@mui/icons-material';
 import { MaterialUISwitch } from '../components/custom-components/CustomSwitch';
+import { HttpStatusCode } from 'axios';
+import ExpirationPlanNotice from '../components/dashboard/ExpirationPlanNotice';
 
 const darkTheme = createTheme({
   palette: {
@@ -16,6 +19,10 @@ const darkTheme = createTheme({
     primary: {
       main: '#1976d2',
     },
+    background: {
+      default: 'rgba(180, 0, 35, 0.8)',
+      paper: 'rgba(180, 0, 35, 0.9)'
+    }
   },
 });
 const lightTheme = createTheme({
@@ -31,19 +38,32 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [waiting, setWaiting] = useState(true);
   const [userInfo, setUserInfo] = useState<User>(null);
-  const commercialNav = "Cotizaciones";
-  const clientsNav = "Clientes";
-  const projectsNav = "Proyectos";
+  const usersNav = "Users";
+  const statisticsNav = "Statistics";
+  const infractionsNav = "Infractions";
+  const areasNav = "Areas";
   const pages = [
     {
-      name: clientsNav,
-      path: `${applicationPaths.dashboard.areas}`,
+      name: usersNav,
+      path: `/${applicationPaths.dashboard.root}/${applicationPaths.dashboard.user.root}/${applicationPaths.dashboard.user.view}`,
       items: [
         {
-          name: "Ver",
-          path: ``
-        },
+          name: "Register",
+          path: `/${applicationPaths.dashboard.root}/${applicationPaths.dashboard.user.root}/${applicationPaths.dashboard.user.register}`,
+        }
       ]
+    },
+    {
+      name: statisticsNav,
+      path: `/${applicationPaths.dashboard.root}/${applicationPaths.dashboard.statistics}`
+    },
+    {
+      name: infractionsNav,
+      path: `/${applicationPaths.dashboard.root}/${applicationPaths.dashboard.infractions}`
+    },
+    {
+      name: areasNav,
+      path: `/${applicationPaths.dashboard.root}/${applicationPaths.dashboard.areas}`
     }
   ];
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
@@ -85,7 +105,7 @@ const Dashboard = () => {
   const handleCloseSession = () => {
     setAnchorElUser(null);
     localStorage.clear();
-    navigate(`../`);
+    navigate(applicationPaths.root);
   }
 
   const changeTheme = () => {
@@ -111,7 +131,7 @@ const Dashboard = () => {
         else
           setTimeout(() => {
             Swal.close();
-            navigate(`/`);
+            navigate(applicationPaths.root);
           }, 5000);
       })
     }
@@ -133,17 +153,17 @@ const Dashboard = () => {
         .then(option => {
           if(option.isConfirmed){
             Swal.close();
-            navigate(`../`);
+            navigate(applicationPaths.root);
           }
           else
             setTimeout(() => {
               Swal.close();
-              navigate(`../`);
+              navigate(applicationPaths.root);
             }, 5000);
         })
       }
     }
-  }, [window.location.pathname])
+  }, [window.location.pathname]);
 
   const getUserInfo = async() => {
     const userId = localStorage.getItem(storageUserIdKeyName);
@@ -155,7 +175,7 @@ const Dashboard = () => {
         const userInfoApi:ApiRequestResponse = await sendGet(`${apiRoutes.userService.root}${apiRoutes.userService.user.root}/${userId}`, jwtToken, tenantId);
         setWaiting(false);
 
-        if(userInfoApi && userInfoApi.httpStatus === 200 && userInfoApi.success && userInfoApi.model)
+        if(userInfoApi && userInfoApi.httpStatus === HttpStatusCode.Ok && userInfoApi.success && userInfoApi.model)
           setUserInfo(userInfoApi.model);
         else{
           setUserInfo(null);
@@ -189,13 +209,13 @@ const Dashboard = () => {
   return (
     userInfo ? 
     <main>
-      Dashboard de {userInfo.name}
+      <ExpirationPlanNotice/>
       <ThemeProvider theme={pageDarkTheme ? darkTheme : lightTheme}>
         <AppBar position="static" color='primary'>
           <Toolbar style={{minHeight:"50px !important"}}>
-            <NavLink to={""}>
+            <NavLink to={`/${applicationPaths.dashboard.root}`}>
               <IconButton sx={{ display: { xs: 'none', md: 'flex' }, m:0, p:0, width:50, height:50 }} >
-                <HomeRounded sx={{width:"100%", height:"100%"}} />
+                <img src={images.aquilesLogo} alt="Aquiles-logo" width="100%" height="100%" />
               </IconButton>
             </NavLink>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent:'center', alignItems: "center", height:50, gap: "5px" }}>
@@ -271,7 +291,7 @@ const Dashboard = () => {
                 }}
               >
                 {pages.map((page:{name:string, path:string, items:any[]}, index:number) => (
-                  <Link key={index} to={page.path} style={{textDecoration: "none", color:"white"}}>
+                  <Link key={index} to={page.path} style={{textDecoration: "none", color: pageDarkTheme ? "white" : "blue"}}>
                     <MenuItem onClick={handleCloseNavMenu}>
                       <Typography textAlign="center">{page.name}</Typography>
                     </MenuItem>
@@ -280,7 +300,9 @@ const Dashboard = () => {
               </Menu>
             </Box>
             
-            <HomeRounded sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+            <Box sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}>
+              <img src={images.aquilesLogo} alt="Aquiles-logo" width="50" height="50" />
+            </Box>
             <Typography
               variant="h5"
               noWrap
@@ -296,7 +318,7 @@ const Dashboard = () => {
                 textDecoration: 'none',
               }}
             >
-              <Link to={""} style={{textDecoration: "none", color:"white"}}>HOME</Link>
+              <Link to={`/${applicationPaths.dashboard.root}`} style={{textDecoration: "none", color:"white"}}>HOME</Link>
             </Typography>
             
             {/* ================> Notifications section <================= */}

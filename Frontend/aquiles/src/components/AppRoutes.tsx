@@ -10,6 +10,7 @@ import RegisterUser from './dashboard/RegisterUser';
 import Statistics from './dashboard/Statistics';
 import Infractions from './dashboard/Infractions';
 import Areas from './dashboard/Areas';
+import ViewUsers from './dashboard/ViewUsers';
 
 const routes = createBrowserRouter([
   {
@@ -34,8 +35,17 @@ const routes = createBrowserRouter([
             element: <MyProfile/>
           },
           {
-            path: applicationPaths.dashboard.registerUser,
-            element: <RegisterUser/>
+            path: applicationPaths.dashboard.user.root,
+            children: [
+              {
+                path: applicationPaths.dashboard.user.view,
+                element: <ViewUsers/>
+              },
+              {
+                path: applicationPaths.dashboard.user.register,
+                element: <RegisterUser/>
+              }
+            ]
           },
           {
             path: applicationPaths.dashboard.statistics,

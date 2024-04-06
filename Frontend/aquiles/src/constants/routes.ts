@@ -4,7 +4,11 @@ export const applicationPaths = {
   dashboard: {
     root: "dashboard",
     profile: "my-profile",
-    registerUser: "register-user",
+    user:{
+      root: "users",
+      register: "register",
+      view: "view"
+    },
     statistics: "statistics",
     infractions: "infractions",
     areas: "areas"

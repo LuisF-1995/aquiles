@@ -3,6 +3,7 @@ import './styles.css';
 import { ExitToAppRounded, PersonAddRounded } from '@mui/icons-material';
 import { NavLink } from 'react-router-dom';
 import { applicationPaths } from '../../constants/routes';
+import { images } from '../../constants/globalConstants';
 
 const RootHeader = ({changeLoginState}) => {
 
@@ -15,7 +16,7 @@ const RootHeader = ({changeLoginState}) => {
       <nav className="navbar py-1" data-bs-theme="dark">
         <section className="container-fluid">
           <NavLink className="navbar-brand p-0" to={applicationPaths.root}>
-            <img src="/images/aquiles-logo.png" alt="Aquiles-logo" width="50" height="50" />
+            <img src={images.aquilesLogo} alt="Aquiles-logo" width="50" height="50" />
             <span style={{marginLeft:10}}>
               Aquiles
             </span>
